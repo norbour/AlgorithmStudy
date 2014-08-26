@@ -15,6 +15,9 @@
 * [我的算法学习之路](http://zh.lucida.me/blog/on-learning-algorithms/)
 * [十道海量数据处理面试题与十个方法大总结](http://kb.cnblogs.com/page/95701/)
 * [常用数据结构及复杂度](http://www.cnblogs.com/gaochundong/p/3813252.html)
+* [《C语言接口与实现》](http://book.douban.com/subject/6801697/)
+* [《Linux C编程一站式学习》](http://book.douban.com/subject/4141733/)
+* [《大话数据结构》](http://book.douban.com/subject/6424904/)
 
 ## 版本库地址
 
