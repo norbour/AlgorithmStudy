@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../Data_Structure/include/sort.h"
 
 void Merge(int SR[], int TR[], int i, int m, int n) { // 将有序的SR[i..m]和SR[m+1..n]归并为有序的TR[i..n]
@@ -21,29 +22,37 @@ void Merge(int SR[], int TR[], int i, int m, int n) { // 将有序的SR[i..m]和
 	}
 }
 
-void MSort(int SR[], int TR1[], int s, int t) { // 将SR[s..t]归并为TR1[s..t]
-	int m;
-	int TR2[MAXSIZE + 1];
-	
-	if (s == t)
-		TR1[s] = SR[s];
-	else {
-		m = (s + t) / 2;
-		MSort(SR, TR2, s, m);
-		MSort(SR, TR2, m + 1, t);
-		Merge(TR2, TR1, s, m, t);
+void MergePass(int SR[], int TR[], int s, int n) { // 将SR[]中相邻长度为s的自序列两两归并到TR[]
+	int i = 1;
+	int j;
+	while (i <= n - 2 * s + 1 ) {
+		Merge(SR, TR, i, i + s - 1, i + 2 * s -1);
+		i = i + 2 * s;
 	}
+	
+	if (i < n - s + 1) 
+		Merge(SR, TR, i, i + s - 1, n);
+	else 
+		for (j = i; j <= n; j++)
+			TR[j] = SR[j];
 }
 
-void MergeSort(SqList *L) {  // 对顺序表L做归并排序，应用递归
-	MSort(L->r, L->r, 1, L->length);
+void MergeSort2(SqList *L) { // 对顺序表L做归并排序，应用迭代
+	int *TR = (int *)malloc(L->length * sizeof(int));
+	int k = 1;
+	while (k < L->length) {
+		MergePass(L->r, TR, k, L->length);
+		k = 2 * k;
+		MergePass(TR, L->r, k, L->length);
+		k = 2 * k;
+	}
 }
 
 int main(int argc, char *argv[]) {
 	SqList L = { { 0, 12, 57, 90, 8, 34, 10, 42, 99, 64, 56, 73, 27 }, 12 };
 	SqList *ptrL = &L;
 	
-	MergeSort(ptrL);
+	MergeSort2(ptrL);
 	
 	for (int i = 1; i <= ptrL->length; i++) {
 		printf("%d ", ptrL->r[i]);
