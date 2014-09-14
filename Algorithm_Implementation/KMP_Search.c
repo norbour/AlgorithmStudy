@@ -35,7 +35,7 @@ int kmp_search(char *s, char *p, int pos) {
 		}
 	}
 	
-	if (j > plen - 1) {
+	if (j >= plen ) {
 		return (i - plen);
 	}else {
 		return -1;
