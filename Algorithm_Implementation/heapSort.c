@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../Data_Structure/include/sort.h"
+#include "../Data_Structure/include/sqlist.h"
 
 void swap(SqList *L, int i, int j) {
 	int temp = L->r[i];
