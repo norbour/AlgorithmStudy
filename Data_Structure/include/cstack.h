@@ -2,22 +2,55 @@
 #define _CSTACK_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define STACK_SIZE 100
 
 typedef struct {
-	char elem[STACK_SIZE];
+	char *elem;
 	int top;
 } CStack;
 
-extern void InitCStack(CStack &S);
+void InitCStack(CStack *S) {
+	S->elem = (char *)malloc(STACK_SIZE * sizeof(char));
+	
+	if (! S->elem) {
+		printf("Overflow!\n");
+		exit(1);
+	}
+	
+	S->top = -1;
+}
 
-extern void Push_C(CStack &S, char e);
+void Push_C(CStack *S, char e) {
+	if (S->top == STACK_SIZE - 1) {
+		printf("Stack Overflow!\n");
+		exit(1);
+	}
+	
+	S->elem[++S->top] = e;
+}
 
-extern char Pop_C(CStack &S);
+char Pop_C(CStack *S) {
+	if (S->top == -1) {
+		printf("Stack empty!\n");
+		exit(1);
+	}
+	
+	return S->elem[S->top--];
+}
 
-extern char GetTop(CStack &S);
+char GetTop(CStack *S) {
+	if (S->top == -1) {
+		printf("Stack empty!\n");
+		exit(1);
+	}
+	
+	return S->elem[S->top];
+}
 
-extern int CStackLength(CStack &S);
+int CStackLength(CStack *S) {
+	return S->top + 1;
+}
 
 #endif
